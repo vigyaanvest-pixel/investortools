@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VigyaanVest Trader Workspace</title>
+<meta name="description" content="One connected pro-trader workspace — research, calendar, and live news in a single Chrome/Edge extension. By VigyaanVest." />
+<style>
+  :root { --green:#337344; --green-light:#578861; --ink:#1a1a19; --muted:#6b6b66; --bg:#f8f8f7; --border:#e4e4e1; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif; color:var(--ink); background:var(--bg); }
+  .wrap { max-width:720px; margin:0 auto; padding:72px 22px; text-align:center; }
+  .brand { height:72px; width:auto; display:block; margin:0 auto 18px; }
+  h1 { font-size:30px; margin:0 0 6px; letter-spacing:-0.02em; }
+  .by { color:var(--muted); font-size:14px; margin-bottom:26px; }
+  p.lead { font-size:16px; line-height:1.6; color:#333; max-width:560px; margin:0 auto 28px; }
+  .feat { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; max-width:560px; margin:0 auto 34px; text-align:left; }
+  .feat div { background:#fff; border:1px solid var(--border); border-radius:10px; padding:12px 14px; font-size:13.5px; }
+  .feat b { color:var(--green); }
+  .links a { display:inline-block; margin:0 8px; color:var(--green); font-weight:600; font-size:14px; text-decoration:none; }
+  .links a:hover { text-decoration:underline; }
+  .badge { display:inline-block; background:#eef3ef; color:var(--green-light); font-size:12px; font-weight:700; padding:5px 12px; border-radius:999px; margin-bottom:22px; }
+  .dl { display:inline-flex; align-items:center; gap:8px; background:var(--green); color:#fff; font-size:15px; font-weight:700; padding:12px 24px; border-radius:10px; text-decoration:none; box-shadow:0 2px 10px rgba(51,115,68,.28); transition:background .13s ease; }
+  .dl:hover { background:var(--green-light); }
+  .dlsub { font-size:12px; color:var(--muted); margin-top:9px; }
+  .install { max-width:560px; margin:30px auto 0; text-align:left; background:#fff; border:1px solid var(--border); border-radius:12px; padding:16px 20px; }
+  .install h2 { font-size:14px; margin:0 0 10px; }
+  .install ol { margin:0; padding-left:20px; }
+  .install li { font-size:13.5px; line-height:1.75; color:#333; }
+  .install code { background:#eef3ef; padding:1px 6px; border-radius:4px; font-size:12.5px; }
+  footer { margin-top:42px; color:var(--muted); font-size:12.5px; line-height:1.6; }
+  .gallery { margin: 8px 0 30px; }
+  .gallery .lbl { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
+  .shots { display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; padding:4px 2px 12px; scrollbar-width:thin; }
+  .shots::-webkit-scrollbar { height:8px; }
+  .shots::-webkit-scrollbar-thumb { background:#cdd4cf; border-radius:8px; }
+  .shots a { flex:0 0 92%; scroll-snap-align:center; display:block; }
+  .shots img { width:100%; height:auto; border-radius:12px; border:1px solid var(--border); box-shadow:0 8px 26px rgba(0,0,0,.12); display:block; }
+  .gallery .hint { font-size:11.5px; color:var(--muted); margin-top:2px; }
+  .howto { max-width:640px; margin:40px auto 0; text-align:left; }
+  .howto .lbl { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); text-align:center; margin-bottom:14px; }
+  .howto details { background:#fff; border:1px solid var(--border); border-radius:10px; margin-bottom:8px; overflow:hidden; }
+  .howto details[open] { border-color:var(--green-light); }
+  .howto summary { cursor:pointer; padding:13px 16px; font-size:14px; font-weight:700; color:var(--ink); list-style:none; display:flex; align-items:center; gap:10px; }
+  .howto summary::-webkit-details-marker { display:none; }
+  .howto summary::after { content:'+'; margin-left:auto; color:var(--green); font-size:19px; font-weight:700; line-height:1; }
+  .howto details[open] summary::after { content:'\2013'; }
+  .howto summary:hover { background:var(--bg, #f8f8f7); }
+  .howto .body { padding:2px 18px 15px; font-size:13.5px; line-height:1.75; color:#333; }
+  .howto .body ol, .howto .body ul { margin:0; padding-left:20px; }
+  .howto .body li { margin:3px 0; }
+  .howto .body b { color:var(--green-light); }
+  .howto .body code, .howto .body kbd { background:#eef3ef; padding:1px 6px; border-radius:4px; font-size:12.5px; font-family:ui-monospace,Menlo,monospace; }
+  .howto .tip { margin-top:8px; font-size:12.5px; color:var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <img class="brand" src="assets/vigyaanvest-logo-clean.png" alt="VigyaanVest · Science of Investing" />
+  <h1>Trader Workspace</h1>
+  <div class="by">by VigyaanVest.com</div>
+  <div class="badge">v1.0 · for Chrome &amp; Edge</div>
+  <p class="lead">One connected pro-trader workspace — Symbol&nbsp;360 research, a market calendar with alerts, and a live news tape — unified into a single, local-first browser extension for US&nbsp;($) and India&nbsp;(₹) markets.</p>
+  <div class="feat">
+    <div><b>Deck</b> — live quotes, fundamentals &amp; your thesis notes</div>
+    <div><b>Grid</b> — your watchlist as a sortable screener</div>
+    <div><b>Calendar</b> — earnings &amp; macro with desktop alerts</div>
+    <div><b>The Tape</b> — live headlines + read-aloud</div>
+  </div>
+  <div class="gallery">
+    <div class="lbl">A look inside ›</div>
+    <div class="shots">
+      <a href="assets/gallery/01-deck.png" target="_blank" rel="noopener"><img src="assets/gallery/01-deck.png" alt="Deck — live research terminal" loading="lazy" /></a>
+      <a href="assets/gallery/02-grid.png" target="_blank" rel="noopener"><img src="assets/gallery/02-grid.png" alt="Grid — watchlist screener" loading="lazy" /></a>
+      <a href="assets/gallery/03-calendar.png" target="_blank" rel="noopener"><img src="assets/gallery/03-calendar.png" alt="Calendar — earnings & macro events" loading="lazy" /></a>
+      <a href="assets/gallery/04-dock.png" target="_blank" rel="noopener"><img src="assets/gallery/04-dock.png" alt="Dock — side panel" loading="lazy" /></a>
+      <a href="assets/gallery/05-midnight.png" target="_blank" rel="noopener"><img src="assets/gallery/05-midnight.png" alt="Midnight theme" loading="lazy" /></a>
+    </div>
+    <div class="hint">Swipe / scroll to see Deck, Grid, Calendar, Dock &amp; Midnight →</div>
+  </div>
+  <a class="dl" href="trader-workspace.zip" download>⬇&nbsp; Download for Chrome &amp; Edge</a>
+  <div class="dlsub">Free · ~90&nbsp;KB · local-first. Not on the store yet — quick manual install below.</div>
+  <div class="install">
+    <h2>Install in about 2 minutes</h2>
+    <ol>
+      <li><b>Download</b> the file above and <b>unzip</b> it — you'll get a <code>trader-workspace</code> folder.</li>
+      <li>Open your browser's extensions page: type <code>chrome://extensions</code> (Chrome) or <code>edge://extensions</code> (Edge) in the address bar and press Enter.</li>
+      <li>Turn on <b>Developer mode</b> (the toggle on that page).</li>
+      <li>Click <b>Load unpacked</b> and select the <code>trader-workspace</code> folder.</li>
+      <li>Click the <b>VigyaanVest</b> icon in your toolbar to open the workspace.</li>
+    </ol>
+  </div>
+  <div class="howto">
+    <div class="lbl">How to use it</div>
+
+    <details open>
+      <summary>Add &amp; find stocks</summary>
+      <div class="body">
+        <ul>
+          <li>Press <kbd>Ctrl</kbd>+<kbd>K</kbd> (Mac: <kbd>⌘</kbd>+<kbd>K</kbd>) or click <b>+ Add</b> to open the search.</li>
+          <li>Type a ticker and press <kbd>Enter</kbd> to open it. Type one that isn't on your list to <b>add</b> it.</li>
+          <li>For India, add the suffix: <code>TCS.NS</code> (NSE) or <code>RELIANCE.BO</code> (BSE). No suffix = US.</li>
+          <li>Use the <b>Filter symbols…</b> box in the watchlist to narrow the list by ticker, name, or tag.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Deck — research one stock</summary>
+      <div class="body">
+        <ul>
+          <li>Click a symbol in the watchlist to load live price, fundamentals, a chart, and your notes.</li>
+          <li>Everything in the right panels is <b>editable and saved locally</b>: change <b>Status</b> (dropdown), pick a <b>Setup</b> chip, and click the Bull / Bear / Trigger / Stop / Review text to type.</li>
+          <li>Add <b>tags</b> by typing in the tags box and pressing <kbd>Enter</kbd>.</li>
+          <li>Use <b>Quick links</b> to open Yahoo / Finviz / Screener / TradingView for that symbol.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Grid — screen your whole watchlist</summary>
+      <div class="body">
+        <ul>
+          <li>Switch to <b>Grid</b> (top bar) to see every name as a sortable table.</li>
+          <li>Click a <b>column header</b> to sort (click again to reverse).</li>
+          <li>Use the left filters — <b>Market</b>, <b>Status</b>, <b>Signal</b> (event this week / in the tape / review overdue).</li>
+          <li>Click a row for the detail drawer, then <b>Open in Deck</b> to dive in.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>The Tape — live news + read-aloud</summary>
+      <div class="body">
+        <p>The Tape only fills while a supported news site is <b>open in a tab</b> — that's how it reads headlines.</p>
+        <ul>
+          <li>In the Deck's right rail, click a source under <b>“Open a source to feed the tape”</b> — TradingView, Finviz, MarketWatch, or Zerodha Pulse. Headlines start streaming in.</li>
+          <li>Click <b>▶</b> on the Squawk bar to read the top headlines aloud.</li>
+          <li>In Settings → The Tape: choose voice / rate / volume, and turn on <b>“Remember what was read”</b> so ▶ doesn't repeat (or <b>Clear read history</b> to start over).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Calendar — earnings &amp; macro events</summary>
+      <div class="body">
+        <ul>
+          <li>The strip at the bottom of Deck shows the next ~12 trading days. Click <b>Open full calendar</b> for Month / Week.</li>
+          <li>Move through time with <b>‹ ›</b>, or click <b>Today</b> to jump back to the current month/week.</li>
+          <li>Click a <b>★ watchlist earnings</b> entry to open that stock in Deck.</li>
+          <li>It syncs automatically twice a day; force it any time with Settings → Data &amp; sync → <b>Sync now</b>.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Alerts — earnings &amp; macro reminders</summary>
+      <div class="body">
+        <p>Alerts are automatic for the stocks on your watchlist — no per-stock setup.</p>
+        <ul>
+          <li>Add a stock to your watchlist and its next earnings auto-arms a desktop reminder.</li>
+          <li>Set <b>how far ahead</b> and the <b>time of day</b> in Settings → Calendar &amp; alerts (and toggle which US / India macro events alert you).</li>
+          <li>Allow notifications for your browser in your OS settings so reminders can show.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Dock — read the page you're on</summary>
+      <div class="body">
+        <ul>
+          <li>While viewing a stock page (Yahoo Finance, Screener.in, NSE, SEC), open the <b>Dock</b> (panel icon, top-right) — it reads that page's key metrics into a side panel.</li>
+          <li>Click <b>Open in full terminal</b> to jump into the full Deck for that symbol.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Settings, themes &amp; backup</summary>
+      <div class="body">
+        <ul>
+          <li>Toggle <b>Light / Midnight</b> with the moon icon (top-right), or in Settings → Appearance (also default view &amp; density).</li>
+          <li><b>Research</b> options: show the TradingView chart embed, and read metrics from the open page (Dock).</li>
+          <li><b>Back up</b> your watchlist, notes &amp; settings: Settings → Data &amp; sync → <b>Export backup (JSON)</b>; restore with <b>Import (merge)</b>.</li>
+        </ul>
+        <div class="tip">Everything you enter stays in your browser — nothing is uploaded.</div>
+      </div>
+    </details>
+  </div>
+
+  <div class="links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="https://vigyaanvest.com">vigyaanvest.com</a>
+  </div>
+  <footer>
+    Research &amp; workflow tool only — not investment advice.<br>
+    © 2026 VigyaanVest. All rights reserved. Public for use; not open source — no reproduction,
+    redistribution, or derivative works without written permission, and any permitted use must
+    credit VigyaanVest. Not for sale.
+  </footer>
+</div>
+</body>
+</html>

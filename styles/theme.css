@@ -1,0 +1,272 @@
+/* ============================================================
+   VigyaanVest Investor Tools — unified design system
+   Theme source: vigyaanvest.com website palette
+   Two scopes: default (light) + [data-theme="midnight"] (dark)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg:           #f8f8f7;
+  --bg-card:      #ffffff;
+  --bg-card-2:    #eff3f0;
+  --bg-hover:     #f1f3f1;
+  --border:       rgba(0,0,0,0.10);
+  --border-strong:rgba(0,0,0,0.16);
+  --green:        #337344;
+  --green-light:  #578861;
+  --green-ink:    #245232;
+  --green-glow:   rgba(51,115,68,0.08);
+  --green-tint:   rgba(51,115,68,0.12);
+  --muted:        #858481;
+  --text:         #1a1a19;
+  --text-dim:     #34322d;
+  --text-3:       #9b9a96;
+  --pos:          #2f8a4e;
+  --pos-bg:       rgba(47,138,78,0.12);
+  --neg:          #c4433b;
+  --neg-bg:       rgba(196,67,59,0.12);
+  --warn:         #b9821f;
+  --warn-bg:      rgba(185,130,31,0.13);
+  --info:         #2f6db0;
+  --info-bg:      rgba(47,109,176,0.12);
+  --us:           #2f6db0;
+  --us-bg:        rgba(47,109,176,0.12);
+  --in:           #c4671f;
+  --in-bg:        rgba(196,103,31,0.13);
+  --radius:       10px;
+  --radius-sm:    7px;
+  --radius-lg:    14px;
+  --shadow-card:  0 1px 2px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-pop:   0 8px 28px rgba(0,0,0,0.16), 0 2px 6px rgba(0,0,0,0.08);
+  --font:         'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono:         'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+[data-theme="midnight"] {
+  --bg:           #111310;
+  --bg-card:      #1a1c18;
+  --bg-card-2:    #222420;
+  --bg-hover:     #25281f;
+  --border:       rgba(255,255,255,0.11);
+  --border-strong:rgba(255,255,255,0.18);
+  --green:        #3f8a52;
+  --green-light:  #7cc08e;
+  --green-ink:    #a6d6b3;
+  --green-glow:   rgba(82,168,110,0.12);
+  --green-tint:   rgba(82,168,110,0.18);
+  --muted:        #8b8b84;
+  --text:         #edeee9;
+  --text-dim:     #c2c3bc;
+  --text-3:       #82837c;
+  --pos:          #5cc079;
+  --pos-bg:       rgba(92,192,121,0.15);
+  --neg:          #e26b63;
+  --neg-bg:       rgba(226,107,99,0.16);
+  --warn:         #d9a443;
+  --warn-bg:      rgba(217,164,67,0.16);
+  --info:         #5b9bd8;
+  --info-bg:      rgba(91,155,216,0.16);
+  --us:           #5b9bd8;
+  --us-bg:        rgba(91,155,216,0.16);
+  --in:           #df8a4a;
+  --in-bg:        rgba(223,138,74,0.16);
+  --shadow-card:  0 1px 2px rgba(0,0,0,0.4), 0 2px 10px rgba(0,0,0,0.35);
+  --shadow-pop:   0 10px 34px rgba(0,0,0,0.55);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.vv-mono, .tnum { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+/* ---------- Card ---------- */
+.vv-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+/* ---------- Section label ---------- */
+.vv-seclabel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- Pill badge (with dot) ---------- */
+.vv-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  padding: 4px 9px 4px 8px;
+  border-radius: 999px;
+  background: var(--green-glow);
+  color: var(--green-light);
+  border: 1px solid var(--green-tint);
+  white-space: nowrap;
+}
+.vv-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.vv-pill.us    { background: var(--us-bg);   color: var(--us);   border-color: transparent; }
+.vv-pill.in    { background: var(--in-bg);   color: var(--in);   border-color: transparent; }
+.vv-pill.high  { background: var(--neg-bg);  color: var(--neg);  border-color: transparent; }
+.vv-pill.med   { background: var(--warn-bg); color: var(--warn); border-color: transparent; }
+.vv-pill.low   { background: var(--bg-card-2); color: var(--muted); border-color: transparent; }
+.vv-pill.pos   { background: var(--pos-bg);  color: var(--pos);  border-color: transparent; }
+.vv-pill.neg   { background: var(--neg-bg);  color: var(--neg);  border-color: transparent; }
+
+/* ---------- Buttons ---------- */
+.vv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 9px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: background .13s ease, border-color .13s ease, color .13s ease, transform .06s ease;
+  white-space: nowrap;
+}
+.vv-btn:hover { background: var(--bg-hover); border-color: var(--border-strong); color: var(--text); }
+.vv-btn:active { transform: translateY(0.5px); }
+.vv-btn.primary {
+  background: var(--green);
+  color: #fff;
+  border-color: var(--green);
+  box-shadow: var(--shadow-card);
+}
+.vv-btn.primary:hover { background: var(--green-light); border-color: var(--green-light); }
+.vv-btn.ghost { background: transparent; border-color: transparent; color: var(--green-light); padding: 6px 8px; }
+.vv-btn.ghost:hover { background: var(--green-glow); color: var(--green-ink); }
+.vv-btn.warn { background: var(--warn-bg); color: var(--warn); border-color: transparent; }
+.vv-btn.warn:hover { background: var(--warn-bg); filter: brightness(0.96); }
+.vv-btn:disabled { opacity: 0.5; cursor: default; }
+
+/* ---------- Toggle switch ---------- */
+.vv-switch { position: relative; display: inline-flex; flex-shrink: 0; }
+.vv-switch input { position: absolute; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.vv-switch span {
+  width: 40px; height: 23px;
+  border-radius: 999px;
+  background: var(--border-strong);
+  transition: background .16s ease;
+  display: block;
+}
+.vv-switch span::after {
+  content: "";
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 17px; height: 17px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  transition: transform .16s ease;
+}
+.vv-switch input:checked + span { background: var(--green); }
+.vv-switch input:checked + span::after { transform: translateX(17px); }
+
+/* ---------- Form controls ---------- */
+.vv-input, .vv-textarea, .vv-select {
+  width: 100%;
+  font-family: var(--font);
+  font-size: 12.5px;
+  color: var(--text);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  transition: border-color .13s ease, box-shadow .13s ease;
+}
+.vv-textarea { resize: vertical; line-height: 1.5; }
+.vv-input:focus, .vv-textarea:focus, .vv-select:focus {
+  outline: none;
+  border-color: var(--green-light);
+  box-shadow: 0 0 0 3px var(--green-glow);
+}
+.vv-input::placeholder, .vv-textarea::placeholder { color: var(--text-3); }
+.vv-fieldlabel {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+
+/* ---------- Metric card grid ---------- */
+.vv-metric-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.vv-metric {
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 11px;
+}
+.vv-metric .lbl { font-size: 9.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.vv-metric .val { font-family: var(--mono); font-size: 14px; color: var(--text); }
+.vv-metric .val.dash { color: var(--text-3); }
+.vv-metric .val.pos { color: var(--pos); }
+.vv-metric .val.neg { color: var(--neg); }
+
+/* ---------- Collapsible "Powered by VigyaanVest" perf block ---------- */
+.vv-powered {
+  border-top: 1px solid var(--border);
+  padding-top: 11px;
+  margin-top: 4px;
+}
+.vv-powered-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.vv-powered-head .lead { font-size: 12px; font-weight: 700; color: var(--text); }
+.vv-powered-head .sub { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.45; }
+.vv-knowmore { background: none; border: 0; padding: 2px 0; color: var(--green-light); font-family: var(--font); font-size: 11.5px; font-weight: 700; cursor: pointer; flex-shrink: 0; }
+.vv-knowmore:hover { text-decoration: underline; color: var(--green-ink); }
+.vv-perf-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 11px;
+  overflow: hidden;
+}
+.vv-perf-card {
+  display: block;
+  text-decoration: none;
+  padding: 9px 10px;
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: border-color .13s ease, background .13s ease;
+}
+.vv-perf-card:hover { border-color: var(--green-light); background: var(--green-glow); }
+.vv-perf-card .pl { display: block; font-size: 10px; color: var(--muted); line-height: 1.25; }
+.vv-perf-card .pv { display: block; margin-top: 5px; font-family: var(--mono); font-size: 20px; font-weight: 500; color: var(--green-light); line-height: 1; }
+
+/* hidden helper */
+[hidden] { display: none !important; }
+
+/* scrollbars */
+.vv-scroll { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+.vv-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+.vv-scroll::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 8px; }
+.vv-scroll::-webkit-scrollbar-track { background: transparent; }

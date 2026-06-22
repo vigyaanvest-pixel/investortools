@@ -1,0 +1,35 @@
+name: Feature request
+description: Suggest a feature or improvement
+title: "[Feature]: "
+labels: ["type: feature", "enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / user story
+      description: "As a <type of user>, I want <capability>, so that <benefit>."
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered (optional)
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Deck (research)
+        - Grid (screener)
+        - The Tape (news / read-aloud)
+        - Calendar & alerts
+        - Dock (side panel)
+        - Settings
+        - Packaging / build
+        - Other

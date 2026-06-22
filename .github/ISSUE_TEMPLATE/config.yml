@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability (private)
+    url: https://vigyaanvest.com
+    about: Please email support@vigyaanvest.com — do not open a public issue for security problems.
+  - name: VigyaanVest
+    url: https://vigyaanvest.com
+    about: Product information and contact.

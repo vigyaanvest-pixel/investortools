@@ -1,0 +1,17 @@
+{
+  "name": "vigyaanvest-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Unified pro-trader workspace: Symbol 360 research, Market Calendar, and a live news Tape in one Deck/Grid terminal.",
+  "license": "UNLICENSED",
+  "author": "VigyaanVest",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "package": "node tools/build.mjs && powershell -NoProfile -ExecutionPolicy Bypass -File tools/zip.ps1",
+    "smoke": "node tools/smoke-test.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "puppeteer": "^23.0.0"
+  }
+}

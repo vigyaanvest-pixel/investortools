@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Privacy Policy — VigyaanVest Trader Workspace</title>
+<style>
+  :root { --green:#337344; --ink:#1a1a19; --muted:#6b6b66; --border:#e4e4e1; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif; color:var(--ink); line-height:1.6; background:#fafafa; }
+  .wrap { max-width:780px; margin:0 auto; padding:48px 22px 80px; }
+  h1 { font-size:26px; margin:0 0 4px; }
+  .sub { color:var(--muted); font-size:13px; margin-bottom:28px; }
+  h2 { font-size:17px; margin:30px 0 8px; border-bottom:1px solid var(--border); padding-bottom:6px; }
+  p,li { font-size:14.5px; }
+  table { border-collapse:collapse; width:100%; margin:10px 0; font-size:13.5px; }
+  th,td { border:1px solid var(--border); padding:7px 10px; text-align:left; vertical-align:top; }
+  th { background:#f1f3f1; }
+  code { background:#f1f3f1; padding:1px 5px; border-radius:4px; font-size:13px; }
+  .badge { display:inline-block; background:var(--green); color:#fff; font-weight:700; font-size:11px; padding:3px 9px; border-radius:999px; letter-spacing:.03em; }
+  a { color:var(--green); }
+  footer { margin-top:36px; color:var(--muted); font-size:12.5px; border-top:1px solid var(--border); padding-top:14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <img src="assets/vigyaanvest-logo-clean.png" alt="VigyaanVest · Science of Investing" style="height:48px;width:auto;display:block;margin-bottom:14px;" />
+  <h1>Privacy Policy — Trader Workspace</h1>
+  <div class="sub">by VigyaanVest.com · Last updated: 21 June 2026</div>
+
+  <p>VigyaanVest Trader Workspace ("the extension") is a <strong>local-first</strong> research and
+  workflow tool. It does <strong>not</strong> have a backend of its own, does <strong>not</strong>
+  require an account, and does <strong>not</strong> collect, transmit, sell, or share your personal
+  information. There is <strong>no analytics, no tracking, and no advertising</strong>.</p>
+
+  <h2>What is stored, and where</h2>
+  <p>All of your data is stored <strong>locally in your browser</strong> via <code>chrome.storage</code>
+  and is never sent to VigyaanVest:</p>
+  <ul>
+    <li>Your <strong>watchlist</strong> (ticker symbols + market).</li>
+    <li>Your <strong>notes</strong> — status, setup, tags, thesis (bull/bear/trigger/stop), review notes.</li>
+    <li>Your <strong>settings</strong>, theme, default view, and density.</li>
+    <li><strong>Cached</strong> quotes, the public calendar, and the recent headline ("Tape") buffer.</li>
+  </ul>
+  <p>You can export this data to a JSON file or import it, entirely on your device. Uninstalling the
+  extension removes this local data.</p>
+
+  <h2>Network requests the extension makes</h2>
+  <p>The extension calls the following <strong>third-party public endpoints</strong>. The only
+  information sent is what's necessary for the request itself (typically a ticker symbol, or a plain
+  request for shared public data). No personal data, identifiers, or browsing history is transmitted.</p>
+  <table>
+    <tr><th>Endpoint</th><th>Why</th><th>What is sent</th></tr>
+    <tr><td>query1/query2.finance.yahoo.com, finance.yahoo.com</td><td>Quotes, charts, fundamentals, earnings dates</td><td>The ticker symbol you focus</td></tr>
+    <tr><td>finviz.com</td><td>US fundamentals (fallback)</td><td>The ticker symbol</td></tr>
+    <tr><td>www.screener.in</td><td>India fundamentals</td><td>The ticker symbol</td></tr>
+    <tr><td>vigyaanvest.com/publicdata</td><td>Shared public earnings/macro calendar</td><td>Nothing (a public read)</td></tr>
+    <tr><td>www.tradingview.com</td><td>Optional in-panel chart embed</td><td>The ticker symbol (in the embed URL)</td></tr>
+  </table>
+  <p>These services have their own privacy policies; requests to them are subject to those.</p>
+
+  <h2>Reading the page you're viewing</h2>
+  <ul>
+    <li><strong>The Tape (headlines):</strong> on supported news sites (TradingView News Flow, Finviz,
+    MarketWatch, Zerodha Pulse) the extension reads <strong>visible headlines</strong> from the page you
+    are already viewing and keeps them in a <strong>local</strong> buffer. Headlines are not sent anywhere.</li>
+    <li><strong>The Dock (page metrics):</strong> on a stock page (Yahoo Finance, Screener.in, NSE, SEC)
+    the extension reads visible metrics from the page you are viewing to show them in the side panel.
+    This stays <strong>local</strong> to your browser.</li>
+  </ul>
+  <p>The extension does not read pages other than these, and does not run on arbitrary websites.</p>
+
+  <h2>Read-aloud (text-to-speech)</h2>
+  <p>The "read aloud" feature uses your <strong>browser's built-in speech voices</strong>. Headline
+  text is spoken locally; nothing is uploaded for synthesis.</p>
+
+  <h2>Data handling summary</h2>
+  <ul>
+    <li>Personal data collected by the developer: <strong>None.</strong></li>
+    <li>Data sold to third parties: <strong>No.</strong> Used for advertising/credit: <strong>No.</strong></li>
+    <li>No remotely-hosted code is executed; the only external content is the sandboxed TradingView chart (display only).</li>
+  </ul>
+
+  <h2>Children</h2>
+  <p>The extension is a general financial-research tool and is not directed at children.</p>
+
+  <h2>Changes</h2>
+  <p>We may update this policy; material changes will be reflected here with a new date.</p>
+
+  <h2>Disclaimer</h2>
+  <p>This is a research and workflow tool only and does <strong>not</strong> constitute investment
+  advice, recommendations, or portfolio management. Market data is sourced from third-party public
+  endpoints and may be delayed, incomplete, or inaccurate.</p>
+
+  <footer>
+    Contact: <a href="mailto:support@vigyaanvest.com">support@vigyaanvest.com</a> ·
+    <a href="https://vigyaanvest.com">vigyaanvest.com</a><br />
+    © 2026 VigyaanVest. All rights reserved.
+  </footer>
+</div>
+</body>
+</html>

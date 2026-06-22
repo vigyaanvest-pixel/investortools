@@ -1,0 +1,52 @@
+name: Bug report
+description: Something in the extension isn't working
+title: "[Bug]: "
+labels: ["type: task", "bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for helping improve VigyaanVest Trader Workspace. Please don't include passwords, API keys, or personal data."
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What went wrong, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the Deck…
+        2. Click…
+        3. See…
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser & version
+      placeholder: "Chrome 126 / Edge 126"
+    validations:
+      required: true
+  - type: input
+    id: extver
+    attributes:
+      label: Extension version
+      placeholder: "1.0.0 (see chrome://extensions)"
+  - type: textarea
+    id: console
+    attributes:
+      label: Console errors (optional)
+      description: From the service-worker console (chrome://extensions → Inspect views) or the page console.
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues for a duplicate.
+          required: true
+        - label: This is not a security vulnerability (report those privately to support@vigyaanvest.com, not as a public issue).
+          required: true

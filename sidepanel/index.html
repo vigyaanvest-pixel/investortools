@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VigyaanVest · Dock</title>
+<link rel="stylesheet" href="../styles/theme.css" />
+<style>
+  body { background: var(--bg); }
+  .dock { display: flex; flex-direction: column; height: 100vh; }
+  .dbar { display: flex; align-items: center; gap: 8px; padding: 11px 13px; border-bottom: 1px solid var(--border); background: var(--bg-card); }
+  .dbrand { display: flex; align-items: center; gap: 7px; font-weight: 700; font-size: 13px; color: var(--text); }
+  .dbrand .v { width: 20px; height: 20px; border-radius: 6px; background: var(--green); color: #fff; display: grid; place-items: center; font-size: 12px; font-weight: 800; }
+  .dbrand .mode { font-size: 9px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); background: var(--bg-card-2); padding: 2px 6px; border-radius: 999px; }
+  .dextract { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--muted); padding: 8px 13px; background: var(--green-glow); border-bottom: 1px solid var(--border); }
+  .dextract .d { width: 7px; height: 7px; border-radius: 50%; background: var(--green-light); flex-shrink: 0; }
+  .dbody { flex: 1; overflow-y: auto; padding: 14px 13px 24px; }
+  .dhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+  .dhead .tk { font-size: 20px; font-weight: 700; color: var(--text); }
+  .dhead .co { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+  .dhead .px .v { font-family: var(--mono); font-size: 18px; text-align: right; }
+  .dhead .px .c { font-family: var(--mono); font-size: 12px; text-align: right; margin-top: 2px; }
+  .pos { color: var(--pos); } .neg { color: var(--neg); }
+  .dpills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .srcline { display: flex; align-items: center; justify-content: space-between; font-size: 10.5px; color: var(--muted); margin: 12px 0 8px; }
+  .prov.page { color: var(--green-light); font-weight: 600; }
+  .note { font-size: 10.5px; color: var(--text-3); margin-top: 9px; line-height: 1.5; }
+  .empty { text-align: center; padding: 48px 18px; color: var(--text-3); }
+  .empty h3 { color: var(--text-dim); font-size: 14px; margin: 0 0 8px; }
+  .empty p { font-size: 12px; line-height: 1.6; margin: 0; }
+  .empty .sites { margin-top: 14px; font-size: 11px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="dock">
+  <div class="dbar">
+    <div class="dbrand"><span class="v">V</span> Symbol 360 <span class="mode">docked</span></div>
+    <span style="margin-left:auto;"></span>
+    <button class="vv-btn ghost" data-vv-themetoggle title="Light / Midnight" style="padding:5px 7px;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+  <div id="extract" class="dextract" hidden><span class="d"></span><span id="extractTxt"></span></div>
+  <div id="body" class="dbody"></div>
+</div>
+<script src="../src/shared/theme.js"></script>
+<script src="sidepanel.js"></script>
+</body>
+</html>

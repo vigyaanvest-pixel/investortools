@@ -1,0 +1,83 @@
+{
+  "manifest_version": 3,
+  "name": "VigyaanVest Trader Workspace",
+  "short_name": "VV Workspace",
+  "version": "1.0.0",
+  "description": "Unified pro-trader workspace: Symbol 360 research, Market Calendar, and a live news Tape in one Deck/Grid terminal.",
+  "author": "VigyaanVest",
+  "homepage_url": "https://vigyaanvest.com",
+  "icons": {
+    "16": "assets/icon-16.png",
+    "32": "assets/icon-32.png",
+    "48": "assets/icon-48.png",
+    "128": "assets/icon-128.png"
+  },
+  "action": {
+    "default_title": "Open VigyaanVest Trader Workspace",
+    "default_icon": {
+      "16": "assets/icon-16.png",
+      "32": "assets/icon-32.png",
+      "48": "assets/icon-48.png",
+      "128": "assets/icon-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background/service-worker.js",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "sidepanel/index.html"
+  },
+  "permissions": [
+    "storage",
+    "alarms",
+    "notifications",
+    "tabs",
+    "tts",
+    "sidePanel"
+  ],
+  "host_permissions": [
+    "https://query1.finance.yahoo.com/*",
+    "https://query2.finance.yahoo.com/*",
+    "https://finance.yahoo.com/*",
+    "https://finviz.com/*",
+    "https://www.finviz.com/*",
+    "https://www.screener.in/*",
+    "https://www.nseindia.com/*",
+    "https://www.tradingview.com/*",
+    "https://www.marketwatch.com/*",
+    "https://marketwatch.com/*",
+    "https://pulse.zerodha.com/*",
+    "https://vigyaanvest.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://finance.yahoo.com/*",
+        "https://www.screener.in/*",
+        "https://www.nseindia.com/*",
+        "https://www.sec.gov/*"
+      ],
+      "js": ["src/content/page-extract.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://www.tradingview.com/news-flow/*",
+        "https://finviz.com/news*",
+        "https://www.finviz.com/news*",
+        "https://www.marketwatch.com/latest-news*",
+        "https://marketwatch.com/latest-news*",
+        "https://pulse.zerodha.com/*"
+      ],
+      "js": ["src/content/sources.js", "src/content/squawk.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/*", "workspace/index.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
