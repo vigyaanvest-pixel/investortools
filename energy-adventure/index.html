@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Energy Adventure Challenge Game</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(#bfe9ff,#fff4c7);color:#17324d;min-height:100vh}
+  .app{max-width:980px;margin:auto;padding:18px}
+  h1{text-align:center;font-size:clamp(34px,6vw,56px);margin:8px 0}
+  .subtitle{text-align:center;font-size:20px;margin-bottom:16px}
+  .topbar,.card{background:#fff;border-radius:22px;box-shadow:0 10px 26px rgba(23,50,77,.13)}
+  .topbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:12px 16px;margin-bottom:16px}
+  .progress{flex:1;min-width:220px;height:24px;background:#e5eef5;border:2px solid #17324d;border-radius:14px;overflow:hidden}
+  .progress div{height:100%;width:0;background:linear-gradient(90deg,#ffd84d,#ff9954);transition:.3s}
+  .card{padding:22px;margin-bottom:18px}
+  .screen{display:none}.screen.active{display:block}
+  .adventures{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+  .tile{background:#f4f8fb;border:3px solid #d6e3ed;border-radius:20px;padding:16px;text-align:center;cursor:pointer;min-height:190px}
+  .tile.locked{opacity:.45;cursor:not-allowed}
+  .tile .icon{font-size:58px}.tile h3{font-size:23px;margin:8px 0}.tile p{font-size:17px;line-height:1.35}
+  .stage{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center}
+  .visual{text-align:center}.big{font-size:140px;display:inline-block}
+  .shake{animation:shake .4s}.bounce{animation:bounce .45s}.spin{animation:spin 1s linear infinite}
+  @keyframes shake{0%,100%{transform:rotate(0)}25%{transform:rotate(-10deg)}75%{transform:rotate(10deg)}}
+  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .bar{height:32px;background:#e7eef4;border:3px solid #17324d;border-radius:18px;overflow:hidden}
+  .fill{height:100%;width:0;background:linear-gradient(90deg,#ffd84d,#ff9954);transition:.25s}
+  .number{font-size:40px;font-weight:bold;margin:8px 0}
+  .status{font-size:21px;font-weight:bold;min-height:54px}
+  .explain{background:#fff5c9;border-left:8px solid #ffd84d;border-radius:14px;padding:14px;font-size:18px;line-height:1.45}
+  .buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+  button{border:none;border-radius:17px;padding:14px 20px;font-size:19px;font-weight:bold;cursor:pointer;box-shadow:0 5px 0 rgba(23,50,77,.2)}
+  button:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(23,50,77,.2)}
+  .blue{background:#58b8ff}.green{background:#69d27b}.orange{background:#ff9b54}.gray{background:#edf3f8}
+  .question{font-size:27px;font-weight:bold;text-align:center;margin-bottom:16px}
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .choice{background:#f3f8fc;border:3px solid #d7e4ee}
+  .feedback{text-align:center;min-height:36px;font-size:22px;font-weight:bold;margin-top:14px}
+  .step-label{text-align:center;font-size:18px;font-weight:bold;margin-bottom:10px;color:#43627d}
+  .hidden{display:none}
+  .celebrate{text-align:center;font-size:70px}
+  @media(max-width:720px){.stage,.choices{grid-template-columns:1fr}.big{font-size:115px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>⚡ Energy Adventure</h1>
+  <div class="subtitle">Do one quick activity, answer the challenge, unlock the next adventure.</div>
+
+  <div class="topbar">
+    <div id="stars" style="font-size:23px;font-weight:bold">⭐ 0</div>
+    <div class="progress"><div id="progressFill"></div></div>
+    <div id="badge" style="font-size:20px;font-weight:bold">Junior Explorer</div>
+  </div>
+
+  <section id="home" class="screen active">
+    <div class="card">
+      <h2 style="text-align:center;font-size:30px">Choose an Adventure</h2>
+      <div id="adventureGrid" class="adventures"></div>
+    </div>
+  </section>
+
+  <section id="activity" class="screen">
+    <div class="card">
+      <div class="step-label">STEP 1 OF 2 — QUICK ACTIVITY</div>
+      <div class="stage">
+        <div class="visual"><div id="icon" class="big">⌚</div></div>
+        <div>
+          <h2 id="title"></h2>
+          <div class="bar"><div id="energyFill" class="fill"></div></div>
+          <div id="energyNumber" class="number">0%</div>
+          <div id="status" class="status"></div>
+          <div id="explain" class="explain"></div>
+          <div id="activityButtons" class="buttons"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="challenge" class="screen">
+    <div class="card">
+      <div class="step-label">STEP 2 OF 2 — CHALLENGE</div>
+      <div id="challengeIcon" style="text-align:center;font-size:78px"></div>
+      <div id="question" class="question"></div>
+      <div id="choices" class="choices"></div>
+      <div id="feedback" class="feedback"></div>
+      <div id="nextButtons" class="buttons hidden">
+        <button class="green" onclick="goNext()">Next Adventure →</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="finish" class="screen">
+    <div class="card">
+      <div class="celebrate">🏆</div>
+      <h2 style="text-align:center;font-size:36px">You are an Energy Scientist!</h2>
+      <p style="text-align:center;font-size:22px">Energy can be stored, transferred, and changed into another form.</p>
+      <div class="buttons"><button class="blue" onclick="restart()">Play Again</button></div>
+    </div>
+  </section>
+
+  <div class="buttons">
+    <button class="gray" onclick="goHome()">← Adventures</button>
+  </div>
+</div>
+
+<script>
+const levels=[
+ {icon:'⌚',title:'Shake Watch',explain:'Your hand gives movement energy to the watch. The watch stores it. Then the watch slowly uses that energy to keep ticking.',question:'Why does the watch stop after some time?',choices:[['Its stored energy gets used up',true],['It becomes sleepy',false],['The numbers disappear',false],['The room becomes quiet',false]]},
+ {icon:'🚲',title:'Bicycle Power',explain:'Food gives your body energy. Your muscles change that energy into movement.',question:'What gives your body energy to pedal?',choices:[['Food',true],['A shadow',false],['The bicycle bell',false],['A pillow',false]]},
+ {icon:'🔦',title:'Flashlight Mission',explain:'A battery stores energy. The flashlight changes it into light and a little heat.',question:'What energy comes out of the flashlight?',choices:[['Light energy',true],['Wind energy',false],['Food energy',false],['Sleep energy',false]]},
+ {icon:'☀️',title:'Solar Power',explain:'A solar panel takes energy from sunlight and changes it into electrical energy.',question:'Where does a solar panel get energy?',choices:[['The Sun',true],['The Moon',false],['A sandwich',false],['A clock',false]]},
+ {icon:'🌬️',title:'Windmill Challenge',explain:'Moving air has energy. A wind turbine changes wind energy into electrical energy.',question:'What turns the turbine blades?',choices:[['Moving air',true],['A battery in each blade',false],['The color white',false],['A clock',false]]},
+ {icon:'🧩',title:'Energy Detective',explain:'Different things use different energy sources.',question:'Which match is correct?',choices:[['Flashlight → Battery',true],['Bicycle → Moonlight',false],['Solar panel → Sandwich',false],['Wind turbine → Pillow',false]]}
+];
+
+let current=0,stars=0,completed=new Set(),clicks=0,energy=0,timer=null,watchRunning=false;
+
+function renderHome(){
+ const grid=document.getElementById('adventureGrid');grid.innerHTML='';
+ levels.forEach((l,i)=>{
+   const unlocked=i===0||completed.has(i-1);
+   const d=document.createElement('div');
+   d.className='tile'+(unlocked?'':' locked');
+   d.innerHTML=`<div class="icon">${l.icon}</div><h3>${i+1}. ${l.title}</h3><p>${l.explain}</p><b>${unlocked?'Play now':'🔒 Locked'}</b>`;
+   if(unlocked)d.onclick=()=>startLevel(i);
+   grid.appendChild(d);
+ });
+}
+
+function show(id){
+ document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+}
+
+function startLevel(i){
+ clearInterval(timer);
+ current=i;clicks=0;energy=0;watchRunning=false;show('activity');
+ const l=levels[i];
+ document.getElementById('icon').textContent=l.icon;
+ document.getElementById('icon').className='big';
+ document.getElementById('title').textContent=`Adventure ${i+1}: ${l.title}`;
+ document.getElementById('explain').textContent=l.explain;
+ document.getElementById('energyFill').style.width='0%';
+ document.getElementById('energyNumber').textContent='0%';
+ const box=document.getElementById('activityButtons');box.innerHTML='';
+
+ if(i===0){
+   document.getElementById('status').textContent='Shake the watch 3 times to store energy.';
+   addButton('👋 Shake Watch','blue',shakeWatch);
+   addButton('▶ Run Watch','green',runWatch,true);
+ }else{
+   document.getElementById('status').textContent='Tap the activity button.';
+   const labels=['🚴 Pedal the Bicycle','💡 Turn On the Flashlight','☀️ Catch Sunlight','💨 Blow the Wind','🔍 Start Detective Test'];
+   addButton(labels[i-1],'blue',doQuickActivity);
+ }
+}
+
+function addButton(label,cls,fn,disabled=false){
+ const b=document.createElement('button');
+ b.className=cls;b.textContent=label;b.onclick=fn;b.disabled=disabled;
+ if(disabled)b.style.opacity='.45';
+ document.getElementById('activityButtons').appendChild(b);
+ return b;
+}
+
+function shakeWatch(){
+ if(watchRunning)return;
+ clicks++;
+ energy=Math.min(100,clicks*34);
+ const icon=document.getElementById('icon');
+ icon.classList.remove('shake');void icon.offsetWidth;icon.classList.add('shake');
+ updateEnergy();
+ if(clicks<3){
+   document.getElementById('status').textContent=`Good! Shake ${3-clicks} more time${3-clicks===1?'':'s'}.`;
+ }else{
+   energy=100;updateEnergy();
+   document.getElementById('status').textContent='Energy is stored. Now press Run Watch.';
+   const buttons=document.querySelectorAll('#activityButtons button');
+   buttons[0].disabled=true;buttons[0].style.opacity='.45';
+   buttons[1].disabled=false;buttons[1].style.opacity='1';
+ }
+}
+
+function runWatch(){
+ if(energy<=0||watchRunning)return;
+ watchRunning=true;
+ const buttons=document.querySelectorAll('#activityButtons button');
+ buttons.forEach(b=>{b.disabled=true;b.style.opacity='.45'});
+ const icon=document.getElementById('icon');
+ icon.classList.remove('shake');icon.classList.add('spin');
+ document.getElementById('status').textContent='Tick-tock! The watch is using its stored energy.';
+ timer=setInterval(()=>{
+   energy=Math.max(0,energy-10);
+   updateEnergy();
+   if(energy>=70) document.getElementById('status').textContent='The watch is running. Stored energy is going down.';
+   else if(energy>=30) document.getElementById('status').textContent='The watch keeps ticking as it uses more energy.';
+   else if(energy>0) document.getElementById('status').textContent='Only a little stored energy is left.';
+   else{
+     clearInterval(timer);watchRunning=false;icon.classList.remove('spin');
+     document.getElementById('status').textContent='The watch stopped because its stored energy was used up.';
+     setTimeout(openChallenge,1100);
+   }
+ },650);
+}
+
+function updateEnergy(){
+ document.getElementById('energyFill').style.width=energy+'%';
+ document.getElementById('energyNumber').textContent=energy+'%';
+}
+
+function doQuickActivity(){
+ const icon=document.getElementById('icon');
+ energy=100;updateEnergy();
+ icon.classList.remove('bounce','spin');void icon.offsetWidth;
+ icon.classList.add(current===4?'spin':'bounce');
+ document.getElementById('status').textContent='Great! Watch what the energy does.';
+ setTimeout(()=>{
+   energy=65;updateEnergy();
+   document.getElementById('status').textContent='Some energy is being used and changed into another form.';
+ },500);
+ setTimeout(openChallenge,1500);
+}
+
+function openChallenge(){
+ const l=levels[current];show('challenge');
+ document.getElementById('challengeIcon').textContent=l.icon;
+ document.getElementById('question').textContent=l.question;
+ document.getElementById('feedback').textContent='';
+ document.getElementById('nextButtons').classList.add('hidden');
+ const box=document.getElementById('choices');box.innerHTML='';
+ l.choices.forEach(([text,correct])=>{
+   const b=document.createElement('button');
+   b.className='choice';b.textContent=text;b.onclick=()=>answer(correct,b);
+   box.appendChild(b);
+ });
+}
+
+function answer(correct,button){
+ if(correct){
+   document.querySelectorAll('.choice').forEach(b=>b.disabled=true);
+   button.style.background='#c9f4d1';
+   document.getElementById('feedback').textContent='✅ Correct! Adventure complete. You earned a star!';
+   if(!completed.has(current)){completed.add(current);stars++;updateTop();}
+   document.getElementById('nextButtons').classList.remove('hidden');
+ }else{
+   button.style.background='#ffd9d9';
+   document.getElementById('feedback').textContent='Try again. Think about where the energy came from and where it went.';
+ }
+}
+
+function goNext(){
+ if(current===levels.length-1){show('finish');return}
+ startLevel(current+1);
+}
+
+function updateTop(){
+ document.getElementById('stars').textContent='⭐ '+stars;
+ document.getElementById('progressFill').style.width=(completed.size/levels.length*100)+'%';
+ document.getElementById('badge').textContent=stars<2?'Junior Explorer':stars<4?'Energy Adventurer':stars<6?'Young Scientist':'Energy Scientist';
+}
+
+function goHome(){
+ clearInterval(timer);watchRunning=false;renderHome();show('home');
+}
+function restart(){
+ clearInterval(timer);stars=0;completed.clear();updateTop();renderHome();show('home');
+}
+
+renderHome();updateTop();
+</script>
+</body>
+</html>
